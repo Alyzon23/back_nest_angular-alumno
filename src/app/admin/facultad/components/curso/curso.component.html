@@ -1,0 +1,77 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+
+            
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2"
+                            (click)="openNew()"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-dropdown [options]="carreras" optionLabel="name" [showClear]="true"
+                placeholder="Filtrar por carreras"/>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="cursos" [columns]="cols" responsiveLayout="scroll" [rows]="10" [paginator]="true"  [rowsPerPageOptions]="[10, 20, 30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} to {last} de {totalRecords} carreras" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Administrar Cursos</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Buscar..." class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id">Id<p-sortIcon field="code"></p-sortIcon></th>
+                        <th pSortableColumn="paralelo">Paralelo<p-sortIcon field="paralelo"></p-sortIcon></th>
+                        <th pSortableColumn="descripcion">Descripcion<p-sortIcon field="descripcion"></p-sortIcon></th>
+                        <th pSortableColumn="carrera_id">Carrera<p-sortIcon field="carrera"></p-sortIcon></th>
+                        
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-curso>
+                    <tr>
+                        <td style="width:14%; min-width:2rem;"><span class="p-column-title">Id</span>
+                            {{curso.code || curso.id}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Paralelo</span>
+                            {{curso.paralelo}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Imagen</span>
+                            <img src="https://pbs.twimg.com/profile_images/3443323072/b2fedc57de3fc509b4e3145fa28c1539_400x400.png" [alt]="curso.name" width="100" class="shadow-4" />
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Descripcion</span>
+                            {{curso.descripcion}}
+                            <td style="width:14%; min-width:10rem;">
+                                <span class="p-column-title">Carrera</span>
+                                {{curso.carrera_id}}
+                            </td>
+                        
+
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success mr-2"
+                                    (click)="editarCurso(curso)"></button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                                    (click)="eliminarCurso(curso)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
